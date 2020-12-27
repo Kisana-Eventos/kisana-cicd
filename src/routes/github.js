@@ -1,4 +1,8 @@
-const { starCreated, starDeleted, releasePublished } = require('../handlers/github');
+/*
+ * Route GitHub webhooks.
+*/
+
+const { starCreated, releasePublished } = require('../handlers/github');
 
 const route = (req, res) => {
     // Current implementation lacks security using a secret on webhooks
@@ -6,7 +10,7 @@ const route = (req, res) => {
     // Handles the POST request made by the webhook (for details check github docs)
     const event = req.header('X-GitHub-Event');
 
-    // Each action will execute a certain function
+    // Each action will execute a certain function from the handlers
     if (event === 'release') {
         if (req.body.action === 'published') {
             releasePublished(
@@ -21,9 +25,6 @@ const route = (req, res) => {
         switch (req.body.action) {
             case 'created':
                 starCreated();
-                break;
-            case 'deleted':
-                starDeleted();
                 break;
         }
     }
