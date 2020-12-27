@@ -7,17 +7,21 @@ const path = require('path');
 const cp = require('child_process');
 const { stderr } = require('process');
 
+/*
+ * Called when a new release has been published on GitHub
+*/
 const releasePublished = (author, branch, version, title) => {
     console.log('>')
     console.log('New release has been published');
     console.log(new Date());
     console.log({ author, branch, version, title });
 
-    // Deploy
-
-
+    // Deploys the code either to production or test
 }
 
+/*
+ * Called when a user gives a star to the repo
+*/
 const starCreated = async () => {
     console.log('>')
     console.log('New star');
@@ -35,9 +39,4 @@ const starCreated = async () => {
     });
 }
 
-const starDeleted = () => {
-    console.log('>')
-    console.log('Star deleted');
-}
-
-module.exports = { starCreated, starDeleted, releasePublished }
+module.exports = { starCreated, releasePublished }
